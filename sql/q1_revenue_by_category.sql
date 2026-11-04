@@ -1,0 +1,14 @@
+#Question 1: Revenue by product category
+#Which product categories bring in the most revenue from completed orders?
+
+
+
+SELECT
+  p.category,
+  ROUND(SUM(oi.sale_price), 2) AS total_revenue
+FROM `bigquery-public-data.thelook_ecommerce.order_items` AS oi
+JOIN `bigquery-public-data.thelook_ecommerce.products` AS p
+  ON oi.product_id = p.id
+WHERE oi.status = 'Complete'
+GROUP BY p.category
+ORDER BY total_revenue DESC;
